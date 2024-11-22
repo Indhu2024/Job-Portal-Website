@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222228;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .container {
+            width: 100%;
+            /* max-width: 400px; */
+            height: 100%;
+            background-color: #b7d8ec;
+            padding: 2rem;
+            border-radius: 1px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 0.9rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #errorMessage {
+            text-align: center;
+            margin-top: 10px;
+            color: red;
+            font-size: 0.9rem;
+            display: none;
+        }
+        body{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="Admin">
+            <h3>Admin Login</h3>
+            <form id="loginForm" onsubmit="return false;">
+                <label for="username">UserName:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="button" onclick="validateLogin()">Login</button>
+
+                <p id="errorMessage">Incorrect username or password.</p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function validateLogin() {
+            // Get username and password values
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Admin credentials (can be moved to a server for real applications)
+            const adminUsername = "indhu";
+            const adminPassword = "admin123";
+
+            // Check if the credentials match
+            if (username === adminUsername && password === adminPassword) {
+                // Redirect to the admin page (actual page redirection)
+                window.location.href = 'adminPage.html'; 
+            } else {
+                // Show error message if credentials are incorrect
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>

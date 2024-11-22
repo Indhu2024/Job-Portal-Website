@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Registration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color:#222228;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #b7d8ec;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+            text-align: center;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 1rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 0.9rem;
+        }
+
+        .success {
+            color: #2ecc71;
+            font-size: 1rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Company Registration</h2>
+    
+    <form id="companyRegisterForm">
+        <label for="companyName">Company Name</label>
+        <input type="text" id="companyName" name="companyName" placeholder="Enter company name" required>
+        <div id="companyNameError" class="error"></div>
+
+        <label for="email">Company Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter company email" required>
+        <div id="emailError" class="error"></div>
+
+        <label for="industry">Industry</label>
+        <select id="industry" name="industry" required>
+            <option value="">Select Industry</option>
+            <option value="Technology">Technology</option>
+            <option value="Finance">Finance</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Manufacturing">Manufacturing</option>
+            <option value="Retail">Retail</option>
+            <option value="Education">Education</option>
+        </select>
+        <div id="industryError" class="error"></div>
+
+        <label for="companySize">Company Size</label>
+        <select id="companySize" name="companySize" required>
+            <option value="">Select Size</option>
+            <option value="Small (1-50)">Small (1-50)</option>
+            <option value="Medium (51-200)">Medium (51-200)</option>
+            <option value="Large (201+)">Large (201+)</option>
+        </select>
+        <div id="companySizeError" class="error"></div>
+
+        <label for="description">Company Description</label>
+        <textarea id="description" name="description" placeholder="Tell us about your company" rows="4" required></textarea>
+        <div id="descriptionError" class="error"></div>
+
+        <!-- Username and Password fields for company login -->
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter username" required>
+        <div id="usernameError" class="error"></div>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter password" required>
+        <div id="passwordError" class="error"></div>
+
+        <input type="submit" value="Register Company">
+    </form>
+
+    <div id="formSuccess" class="success"></div>
+</div>
+
+<script>
+    document.getElementById("companyRegisterForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Clear previous errors
+        clearErrors();
+
+        // Get form field values
+        const companyName = document.getElementById("companyName").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const industry = document.getElementById("industry").value.trim();
+        const companySize = document.getElementById("companySize").value.trim();
+        const description = document.getElementById("description").value.trim();
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        let formIsValid = true;
+
+        // Company Name validation
+        if (!companyName || companyName.length < 3) {
+            document.getElementById("companyNameError").textContent = "Company name is required and must be at least 3 characters.";
+            formIsValid = false;
+        }
+
+        // Email validation
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!email || !emailPattern.test(email)) {
+            document.getElementById("emailError").textContent = "Please enter a valid email address.";
+            formIsValid = false;
+        }
+
+        // Industry validation
+        if (!industry) {
+            document.getElementById("industryError").textContent = "Please select an industry.";
+            formIsValid = false;
+        }
+
+        // Company Size validation
+        if (!companySize) {
+            document.getElementById("companySizeError").textContent = "Please select the company size.";
+            formIsValid = false;
+        }
+
+        // Description validation
+        if (!description || description.length < 10) {
+            document.getElementById("descriptionError").textContent = "Description is required and must be at least 10 characters.";
+            formIsValid = false;
+        }
+
+        // Username validation
+        if (!username || username.length < 3) {
+            document.getElementById("usernameError").textContent = "Username is required and must be at least 3 characters.";
+            formIsValid = false;
+        }
+
+        // Password validation
+        if (!password || password.length < 8) {
+            document.getElementById("passwordError").textContent = "Password is required and must be at least 8 characters.";
+            formIsValid = false;
+        }
+
+        // If form is valid, save to localStorage and show success message
+        if (formIsValid) {
+            // Save company registration data (username and password) to localStorage
+            localStorage.setItem('company', JSON.stringify({ username, password }));
+
+            // Show success message
+            document.getElementById("formSuccess").textContent = "Company registration successful! Welcome, " + companyName + ".";
+
+            // Optionally, clear the form
+            document.getElementById("companyRegisterForm").reset(); // Clear the form
+        }
+    });
+
+    // Function to clear error messages
+    function clearErrors() {
+        const errorElements = document.querySelectorAll(".error");
+        errorElements.forEach(function(element) {
+            element.textContent = "";
+        });
+    }
+</script>
+
+</body>
+</html>

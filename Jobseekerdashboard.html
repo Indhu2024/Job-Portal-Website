@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Portal System</title>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: #6c757d;
+            color: white;
+            text-align: center;
+            padding: 2px 0;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .header h2 {
+            margin: 5px 0;
+            font-weight: normal;
+            font-size: 10px;
+        }
+
+        /* Navigation bar inside the header */
+        .nav {
+            background-color: #333;
+            display: flex;
+            font-size: 10px;
+            justify-content: center;
+            padding: 5px 0;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav a:hover {
+            background-color: #007bff;
+        }
+
+        /* Content area */
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            grid-gap: 10px;
+            padding: 10px;
+        }
+
+        /* Frame styles for each section */
+        .frame {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px; /* Decreased padding */
+            height: 85%;
+        }
+
+        /* Welcome Frame (Profile & Bio) */
+        #welcome {
+            grid-column: 1 / 2;
+            grid-row: 1;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 15px;
+            text-align: left;
+        }
+
+        #welcome img {
+            border-radius: 50%;
+            width: 80px; /* Reduced image size */
+            height: 80px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Bio section */
+        #bio {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #bio h2 {
+            font-size: 0.9rem; /* Reduced font size */
+            margin-bottom: 5px;
+            color: #007bff;
+        }
+
+        #bio ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #bio li {
+            margin-bottom: 3px; /* Reduced margin */
+            font-size: 0.85rem; /* Reduced font size */
+        }
+
+        /* Job Search Frame */
+        #job-search {
+            grid-column: 2 / 3;
+            grid-row: 1;
+            background-color: #f0f0f0;
+            padding: 15px;
+        }
+
+        #job-search p {
+            font-size: 0.95rem; /* Reduced font size */
+            margin-bottom: 12px;
+        }
+
+        #job-search input,
+        #job-search select,
+        #job-search button {
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 0.85rem; /* Reduced font size */
+        }
+
+        #job-search button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #job-search button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Messages Table */
+        .messages {
+            grid-column: 1 / 3;
+            grid-row: 2;
+            width: 100%;
+            padding: 15px;
+        }
+
+        .messages h2 {
+            font-size: 1.2rem; /* Reduced font size */
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px; /* Reduced padding */
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        td button {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        td button:hover {
+            background-color: #e60000;
+        }
+
+        footer {
+            background-color: #333;
+            font-size: 10px;
+            color: white;
+            text-align: center;
+            padding: 2px;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr; /* Single column layout on mobile */
+            }
+
+            .nav a {
+                margin: 0 10px;
+                padding: 8px 12px;
+            }
+
+            #welcome {
+                grid-template-columns: 1fr; /* Stack profile and bio on mobile */
+            }
+
+            #bio ul {
+                font-size: 9px; /* Reduced font size for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1>Job Portal System</h1>
+        <h2>Welcome to S P R JobPortal</h2>
+        <div class="nav">
+            <a href="Jobseekerdashboard.html">My Account</a>
+            <a href="#">Job Matches</a>
+            <a href="#">Applied Jobs</a>
+            <a href="forgotpassword.html">Change Password</a>
+            <a href="Home.html">LogOut</a>
+        </div>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="content">
+        
+        <!-- Welcome Frame (Profile & Bio) -->
+        <div id="welcome" class="frame">
+            <div>
+                <img src="indhu.jpg" alt="Profile Picture">
+            </div>
+            <div id="bio">
+                <h2>Personal Information</h2>
+                <ul>
+                    <li><strong>Full Name:</strong> Indhu Reddy Yerra</li>
+                    <li><strong>Email:</strong> indhu@gmail.com</li>
+                    <li><strong>Phone Number:</strong> 9391297569</li>
+                    <li><strong>Location:</strong> Hyderabad</li>
+                </ul>
+                
+                <div>
+                    <h2>Professional Summary</h2>
+                    <p>Experienced software developer with 1 year in front-end and back-end development.</p>
+                </div>
+
+                
+            </div>
+        </div>
+
+        <!-- Job Search Frame -->
+        <div id="job-search" class="frame">
+            <p>Find a Job Here within Seconds!</p>
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name">
+            <label for="skill">Skill:</label>
+            <select id="skill">
+                <option value="">SELECT</option>
+                <option value="java">Java</option>
+                <option value="python">Python</option>
+                <option value="csharp">C#</option>
+            </select>
+            <label for="qualification">Qualification:</label>
+            <select id="qualification">
+                <option value="">SELECT</option>
+                <option value="btech">B.Tech</option>
+                <option value="bsc">B.Sc</option>
+                <option value="bed">B.Ed</option>
+                <option value="bcom">B.Com</option>
+            </select>
+            <button>Search</button>
+        </div>
+
+        <!-- Messages Frame -->
+        <div class="messages frame">
+            <h2>Job Seeker Messages Sent</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Message</th>
+                        <th>Send Date</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Team SPR Technologies</td>
+                        <td>Hello Indhu, we have new opportunities...</td>
+                        <td>18/11/2024 2:01:39 PM</td>
+                        <td><button>Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>Team SPR Technologies</td>
+                        <td>Your application has been received...</td>
+                        <td>18/11/2024 3:00:00 PM</td>
+                        <td><button>Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>    
+    </div>
+    <footer>
+        <p>All Rights Reserved @ 2018</p>
+    </footer>
+
+    <!-- JavaScript for Search Logic -->
+    <script>
+        const searchButton = document.querySelector("#job-search button");
+
+        searchButton.addEventListener("click", () => {
+            const name = document.getElementById("name").value;
+            const skill = document.getElementById("skill").value;
+            const qualification = document.getElementById("qualification").value;
+
+            console.log("Searching for jobs with:");
+            console.log("Name:", name);
+            console.log("Skill:", skill);
+            console.log("Qualification:", qualification);
+
+        });
+    </script>
+
+</body>
+</html>

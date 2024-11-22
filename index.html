@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Portal System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <div class="main">
+    <div class="header">
+        <div class="logo">
+            <div class="circle">S</div>
+            <div class="circle">P</div>
+            <div class="circle">R</div>
+        </div>
+        <h1>Job Portal System</h1>
+    </div>
+    <nav>
+        <a href="home.html" target="main-frame">HOME</a>
+        <a href="Jobseek.html" target="main-frame">JOBSEEKER</a>
+        <a href="newcompanyregister.html" target="main-frame">NEW COMPANY</a>
+        <a href="AdminLogin.html" target="main-frame">Admin Login</a>
+        <a href="feedback.html" target="main-frame">FEEDBACK</a>
+        <a href="contact.html" target="main-frame">CONTACT US</a>
+    </nav>
+    <div class="container">
+        <div class="left-slidebar">
+            <div class="login-area">
+                <h3>Job Seeker Login Area</h3>
+                <form id="jobseeker-login-form"><br>
+                    <label for="username">UserName:</label>
+                    <input type="text" id="username" name="username" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <div class="login">
+                        <div>
+                            <button type="button" onclick="login('jobseeker')">Login</button>
+                        </div>
+                        <div class="links"><br>
+                            <div>
+                                <a href="Jobseek.html" target="main-frame">New JobSeeker?</a><br><br>
+                            </div>
+                            <a href="forgotpassword.html">Forgot Password?</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="categories">
+                <h4>Find Job by Category</h4><br>
+                <ul>
+                    <li><a href="#" style="color:black;">ASP.Net (2)</a></li><br>
+                    <li><a href="#" style="color:black;">PHP (5)</a></li><br>
+                    <li><a href="#" style="color:black;">C#(4)</a></li>
+                </ul>
+            </div>
+
+            <div class="jobseeker">
+                <h4>Find Jobseeker by Category</h4><br>
+                <ul>
+                    <li><a href="#" style="color:black;">ASP.Net (2)</a></li><br>
+                    <li><a href="#" style="color:black;"">Java (7)</a></li><br>
+                    <li><a href="#" style="color:black"">PHP (2)</a></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="center">
+            <div class="iframe-frame">
+                <iframe name="main-frame" src="home.html"></iframe>
+            </div>
+        </div>
+
+        <div class="right-sidebar">
+            <div class=" company-login">
+                <h3>Company Login Area</h3><br>
+                <form id="company-login-form">
+                    <label for="company-username">UserName:</label>
+                    <input type="text" id="company-username" name="company-username">
+                    <label for="company-password">Password:</label>
+                    <input type="password" id="company-password" name="company-password">
+                    <div class="login">
+                        <div>
+                            <button type="button" onclick="login('company')">Login</button>
+                        </div>
+                        <div class="links"><br>
+                            <a href="newcompanyregister.html" target="main-frame">New Company?</a><br><br>
+                        
+                        <a href="forgotpassword.html">Forgot Password?</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="search-area">
+                <h4>Find Job / Company Here within a Second !!</h4>
+                    <form id="jobseeker-search-area">
+                        <label for="degree">Degree:</label>
+                        <select id="degree">
+                            <option value="">M.Tech</optionon>
+                                <option value="">MBA</option>
+                            <option value="">Graduation</option>
+                            <option value="">Intermediate</option>
+                            <option value="">Diploma</option>
+                        </select>
+                        <label for="skill">Skill:</label>
+                        <select id="skill">
+                            <option value=""><b>Select</b></option>
+                            <option value="">Java</option>
+                            <option value="">Python</option>
+                            <option value="">C#</option>
+                        </select>
+                        <button type="button">Job</button>
+                        <button type="button">Resume</button>
+                    </form>
+                
+            </div>
+        </div>  
+    </div>
+    
+    
+ </div>
+ <footer>
+    <p>All Rights Reserved @ 2024</p>
+</footer>
+
+    <script>
+        // Function for login validation and navigation
+        function login(userType) {
+            let username, password, form, storedData;
+
+            // Get the username and password depending on user type (Jobseeker or Company)
+            if (userType === 'jobseeker') {
+                username = document.getElementById('username').value.trim();
+                password = document.getElementById('password').value.trim();
+                form = document.getElementById('jobseeker-login-form');
+                storedData = JSON.parse(localStorage.getItem('jobseeker')) || {}; // Get registered jobseeker data from localStorage
+            } else if (userType === 'company') {
+                username = document.getElementById('company-username').value.trim();
+                password = document.getElementById('company-password').value.trim();
+                form = document.getElementById('company-login-form');
+                storedData = JSON.parse(localStorage.getItem('company')) || {}; // Get registered company data from localStorage
+            }
+
+            // Validate the input fields
+            if (username === "" || password === "") {
+                alert("Please enter both username and password.");
+                return;
+            }
+
+            // Check if the username and password match the stored data
+            if (storedData.username === username && storedData.password === password) {
+                alert("Login successful!");
+
+                // Reset the form after successful login
+                form.reset();
+
+                // Redirect to respective dashboard based on user type
+                if (userType === 'jobseeker') {
+                    window.location.href = 'jobseekerdashboard.html'; // Redirect to jobseeker dashboard
+                } else if (userType === 'company') {
+                    window.location.href = 'newcompanydashboard.html'; // Redirect to company dashboard
+                }
+            } else {
+                alert("Invalid username or password. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>

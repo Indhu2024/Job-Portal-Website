@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Seeker Registration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color:#222228;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #b7d8ec;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+            text-align: center;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 1rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 0.9rem;
+        }
+
+        .success {
+            color: #2ecc71;
+            font-size: 1rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Feedback form</h2>
+    
+    <form id="Feedback">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+        <div id="nameError" class="error"></div>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        <div id="emailError" class="error"></div>
+
+        <label for="PhoneNumber">Phone number</label>
+        <input type="number" id="Phone" name="phone" placeholder="PhoneNumber" required>
+        <div id="PhoneNumber" class="error"></div>
+
+        <label for="feedback">Feedback</label>
+        <textarea id="Fb" name="bio" placeholder="Give your Feedback" rows="4" required></textarea>
+        <div id="Feedbackerror" class="error"></div>
+
+        <input type="submit" value="submit">
+    </form>
+
+    <div id="formSuccess" class="success"></div>
+</div>
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Clear previous errors
+        clearErrors();
+
+        // Get form field values
+        const fullName = document.getElementById("fullName").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const experience = document.getElementById("phonenumber").value.trim();
+        const bio = document.getElementById("Feedback").value.trim();
+        let formIsValid = true;
+
+        // Name validation
+        if (!fullName || fullName.length < 3) {
+            document.getElementById("nameError").textContent = "Full Name is required and must be at least 3 characters.";
+            formIsValid = false;
+        }
+
+        // Email validation
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!email || !emailPattern.test(email)) {
+            document.getElementById("emailError").textContent = "Please enter a valid email address.";
+            formIsValid = false;
+        }
+
+        // Experience validation
+        if (!experience || experience <= 0) {
+            document.getElementById("experienceError").textContent = "Experience is required and must be greater than 0.";
+            formIsValid = false;
+        }
+
+        // Bio validation
+        if (!bio || bio.length < 10) {
+            document.getElementById("bioError").textContent = "Bio is required and must be at least 10 characters.";
+            formIsValid = false;
+        }
+
+        // If form is valid, show success message
+        if (formIsValid) {
+            document.getElementById("formSuccess").textContent = "Registration successful! Welcome, " + fullName + ".";
+            document.getElementById("registerForm").reset(); // Clear the form
+        }
+    });
+
+    // Function to clear error messages
+    function clearErrors() {
+        const errorElements = document.querySelectorAll(".error");
+        errorElements.forEach(function(element) {
+            element.textContent = "";
+        });
+    }
+</script>
+
+</body>
+</html>

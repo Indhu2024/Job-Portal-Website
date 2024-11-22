@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Seeker Registration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color:#222228 ;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #b7d8ec;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+            text-align: center;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 1rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 0.9rem;
+        }
+
+        .success {
+            color: #2ecc71;
+            font-size: 1rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Job Seeker Registration</h2>
+    
+    <form id="registerForm">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        <div id="usernameError" class="error"></div>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        <div id="emailError" class="error"></div>
+
+        <label for="address">Address</label>
+        <textarea id="address" name="address" placeholder="Enter your address" rows="3" required></textarea>
+        <div id="addressError" class="error"></div>
+
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" placeholder="Enter your city" required>
+        <div id="cityError" class="error"></div>
+
+        <label for="pincode">Pincode</label>
+        <input type="text" id="pincode" name="pincode" placeholder="Enter your pincode" required>
+        <div id="pincodeError" class="error"></div>
+
+        <label for="mobileNo">Mobile Number</label>
+        <input type="tel" id="mobileNo" name="mobileNo" placeholder="Enter your mobile number" required>
+        <div id="mobileNoError" class="error"></div>
+
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" required>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <div id="genderError" class="error"></div>
+
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob" required>
+        <div id="dobError" class="error"></div>
+
+        <label for="yearOfPassing">Year of Passing</label>
+        <input type="number" id="yearOfPassing" name="yearOfPassing" placeholder="Enter year of passing" required>
+        <div id="yearOfPassingError" class="error"></div>
+
+        <label for="experience">Years of Experience</label>
+        <input type="number" id="experience" name="experience" placeholder="Enter years of experience" required>
+        <div id="experienceError" class="error"></div>
+
+        <label for="skills">Skills (comma separated)</label>
+        <input type="text" id="skills" name="skills" placeholder="e.g. JavaScript, React, Node.js" required>
+        <div id="skillsError" class="error"></div>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <div id="passwordError" class="error"></div>
+
+        <input type="submit" value="Register">
+    </form>
+
+    <div id="formSuccess" class="success"></div>
+</div>
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Clear previous errors
+        clearErrors();
+
+        // Get form field values
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const address = document.getElementById("address").value.trim();
+        const city = document.getElementById("city").value.trim();
+        const pincode = document.getElementById("pincode").value.trim();
+        const mobileNo = document.getElementById("mobileNo").value.trim();
+        const gender = document.getElementById("gender").value.trim();
+        const dob = document.getElementById("dob").value.trim();
+        const yearOfPassing = document.getElementById("yearOfPassing").value.trim();
+        const experience = document.getElementById("experience").value.trim();
+        const skills = document.getElementById("skills").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        let formIsValid = true;
+
+        // Validation checks (as before)
+        if (!username || username.length < 3) {
+            document.getElementById("usernameError").textContent = "Username is required and must be at least 3 characters.";
+            formIsValid = false;
+        }
+
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!email || !emailPattern.test(email)) {
+            document.getElementById("emailError").textContent = "Please enter a valid email address.";
+            formIsValid = false;
+        }
+
+        if (!address || address.length < 10) {
+            document.getElementById("addressError").textContent = "Address is required and must be at least 10 characters.";
+            formIsValid = false;
+        }
+
+        if (!city) {
+            document.getElementById("cityError").textContent = "City is required.";
+            formIsValid = false;
+        }
+
+        if (!pincode || pincode.length < 6) {
+            document.getElementById("pincodeError").textContent = "Pincode must be at least 6 digits.";
+            formIsValid = false;
+        }
+
+        if (!mobileNo || mobileNo.length < 10) {
+            document.getElementById("mobileNoError").textContent = "Please enter a valid mobile number.";
+            formIsValid = false;
+        }
+
+        if (!gender) {
+            document.getElementById("genderError").textContent = "Please select your gender.";
+            formIsValid = false;
+        }
+
+        if (!dob) {
+            document.getElementById("dobError").textContent = "Please enter your date of birth.";
+            formIsValid = false;
+        }
+
+        if (!yearOfPassing || yearOfPassing < 1900 || yearOfPassing > new Date().getFullYear()) {
+            document.getElementById("yearOfPassingError").textContent = "Please enter a valid year of passing.";
+            formIsValid = false;
+        }
+
+        if (!experience || experience < 0) {
+            document.getElementById("experienceError").textContent = "Experience is required and must be a positive number.";
+            formIsValid = false;
+        }
+
+        if (!skills) {
+            document.getElementById("skillsError").textContent = "Skills are required.";
+            formIsValid = false;
+        }
+
+        if (!password || password.length < 8) {
+            document.getElementById("passwordError").textContent = "Password is required and must be at least 8 characters.";
+            formIsValid = false;
+        }
+
+        // If form is valid, save to localStorage and show success message
+        if (formIsValid) {
+            // Save jobseeker registration data to localStorage
+            localStorage.setItem('jobseeker', JSON.stringify({ username, password }));
+
+            // Show success message
+            document.getElementById("formSuccess").textContent = "Registration successful! Welcome, " + username + ".";
+
+            // Optionally, redirect to login page or another page
+            // window.location.href = "login.html";
+        }
+    });
+
+    // Function to clear error messages
+    function clearErrors() {
+        const errorElements = document.querySelectorAll(".error");
+        errorElements.forEach(function(element) {
+            element.textContent = "";
+        });
+    }
+</script>
+
+</body>
+</html>
